@@ -99,23 +99,23 @@ working_counts = [0, 0, 0, 0, 0, 0]
 # obstacles = inven_coords + conveyors
 
 # # 3. Inventory 52
-inven_coords = [(4, 12), (5, 12), (6, 12), (7, 12), (10, 12), (11, 12), (12, 12), (13, 12),
-                (4, 11), (5, 11), (6, 11), (7, 11), (10,
-                                                     11), (11, 11), (12, 11), (13, 11),
-                (3, 8), (4, 8), (5, 8), (6, 8), (11, 8), (12, 8), (13, 8), (14, 8),
-                (3, 7), (4, 7), (5, 7), (6, 7), (11, 7), (12, 7), (13, 7), (14, 7),
-                (3, 4), (4, 4), (5, 4), (6, 4), (7, 4), (10,
-                                                         4), (11, 4), (12, 4), (13, 4), (14, 4),
-                (3, 3), (4, 3), (5, 3), (6, 3), (7, 3), (10, 3), (11, 3), (12, 3), (13, 3), (14, 3)]
-workplaces = [(4, 13), (5, 13), (6, 13), (7, 13), (10, 13), (11, 13), (12, 13), (13, 13),
-              (4, 10), (5, 10), (6, 10), (7, 10), (10,
-                                                   10), (11, 10), (12, 10), (13, 10),
-              (3, 9), (4, 9), (5, 9), (6, 9), (11, 9), (12, 9), (13, 9), (14, 9),
-              (3, 6), (4, 6), (5, 6), (6, 6), (11, 6), (12, 6), (13, 6), (14, 6),
-              (3, 5), (4, 5), (5, 5), (6, 5), (7, 5), (10,
-                                                       5), (11, 5), (12, 5), (13, 5), (14, 5),
-              (3, 2), (4, 2), (5, 2), (6, 2), (7, 2), (10, 2), (11, 2), (12, 2), (13, 2), (14, 2)]
-obstacles = inven_coords + conveyors
+# inven_coords = [(4, 12), (5, 12), (6, 12), (7, 12), (10, 12), (11, 12), (12, 12), (13, 12),
+#                 (4, 11), (5, 11), (6, 11), (7, 11), (10,
+#                                                      11), (11, 11), (12, 11), (13, 11),
+#                 (3, 8), (4, 8), (5, 8), (6, 8), (11, 8), (12, 8), (13, 8), (14, 8),
+#                 (3, 7), (4, 7), (5, 7), (6, 7), (11, 7), (12, 7), (13, 7), (14, 7),
+#                 (3, 4), (4, 4), (5, 4), (6, 4), (7, 4), (10,
+#                                                          4), (11, 4), (12, 4), (13, 4), (14, 4),
+#                 (3, 3), (4, 3), (5, 3), (6, 3), (7, 3), (10, 3), (11, 3), (12, 3), (13, 3), (14, 3)]
+# workplaces = [(4, 13), (5, 13), (6, 13), (7, 13), (10, 13), (11, 13), (12, 13), (13, 13),
+#               (4, 10), (5, 10), (6, 10), (7, 10), (10,
+#                                                    10), (11, 10), (12, 10), (13, 10),
+#               (3, 9), (4, 9), (5, 9), (6, 9), (11, 9), (12, 9), (13, 9), (14, 9),
+#               (3, 6), (4, 6), (5, 6), (6, 6), (11, 6), (12, 6), (13, 6), (14, 6),
+#               (3, 5), (4, 5), (5, 5), (6, 5), (7, 5), (10,
+#                                                        5), (11, 5), (12, 5), (13, 5), (14, 5),
+#               (3, 2), (4, 2), (5, 2), (6, 2), (7, 2), (10, 2), (11, 2), (12, 2), (13, 2), (14, 2)]
+# obstacles = inven_coords + conveyors
 
 # # 4. Inventory 48
 # inven_coords = [(4, 12), (5, 12), (6, 12), (7, 12), (10, 12), (11, 12), (12, 12), (13, 12),
@@ -290,7 +290,7 @@ obstacles = inven_coords + conveyors
 
 ###################################################
 
-revival = 100
+revival = 50
 workplaces_copy = workplaces.copy()
 workplaces_arrive_counts = [5 for _ in range(len(workplaces))]
 workplaces_revival_counts = [revival for _ in range(len(workplaces))]
@@ -324,9 +324,8 @@ class Worker(Agent):
                 output[self.unique_id] += 5  # 기록 1
                 working_counts[self.unique_id] += 1  # 기록 2
         elif self.is_arrived_at_target_place():  # 일이 아직 안 끝난 상태이고 목표위치와 내 위치가 같으면 새로 위치를 할당해라
-            print(self.unique_id, ': ', self.pos)
             if workplaces_arrive_counts[workplaces_copy.index(self.pos)] == 0:
-                workplaces.remove(self.pos)
+                obstacles.append(self.pos)
                 workplaces_arrive_counts[workplaces_copy.index(self.pos)] = 5
                 workplaces_revival_counts[workplaces_copy.index(self.pos)] -= 1
             else:
@@ -345,11 +344,14 @@ class Worker(Agent):
         self.move()
         agent_pos_nows[self.unique_id] = self.pos
 
-        print(len(workplaces))
-        # print("remaining works : ", self.num_remaining_work)
-        # print("target : ", self.target_place)
-        # print("now : ", self.pos)
-        # print("-------------------------------------------------------")
+        # print(len(obstacles))
+        if self.unique_id == 1:
+            print("remaining works : ", self.num_remaining_work)
+            print("target : ", self.target_place)
+            print("now : ", self.pos)
+            print("obstacles : ", list(
+                set(obstacles) - set(inven_coords + conveyors)))
+            print("-------------------------------------------------------")
 
     def allocate_work(self):
         self.num_remaining_work = 5
@@ -424,9 +426,14 @@ class Workplace(Agent):
         if workplaces_revival_counts[workplaces_copy.index(self.pos)] != revival:
             workplaces_revival_counts[workplaces_copy.index(self.pos)] -= 1
             if (workplaces_arrive_counts[workplaces_copy.index(self.pos)] == 5) and (workplaces_revival_counts[workplaces_copy.index(self.pos)] == 0):
-                workplaces.append(self.pos)
+                obstacles.remove(self.pos)
                 workplaces_revival_counts[workplaces_copy.index(
                     self.pos)] = revival
+
+        if self.pos in list(set(obstacles) - set(inven_coords + conveyors)):
+            self.name = "WorkplaceBlocked"
+        else:
+            self.name = "Workplace"
 
 
 class Cart1(Agent):

@@ -71,6 +71,11 @@ def agent_portrayal(agent):
     elif agent.name == "Conveyor":
         portrayal["Color"] = "lightgrey"
         portrayal["Layer"] = 0
+    elif agent.name == "WorkplaceBlocked":
+        portrayal["Color"] = "rgba(255, 0, 0, 0.1)"
+        portrayal["text"] = "X"
+        portrayal["text_color"] = "red"
+        portrayal["Layer"] = 0
     elif agent.name == "Workplace":
         portrayal["Color"] = "transparent"
         portrayal["text"] = ""
