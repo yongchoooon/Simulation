@@ -17,33 +17,34 @@ def agent_portrayal(agent):
     if agent.name == "Worker":
         if agent.unique_id == 0:
             portrayal["Color"] = "red"
-            # portrayal["text"] = "서용득"
+            portrayal["text"] = "서용득"
             portrayal["Layer"] = 1
         if agent.unique_id == 1:
             portrayal["Color"] = "orange"
-            # portrayal["text"] = "한지훈"
+            portrayal["text"] = "한지훈"
             portrayal["Layer"] = 1
         if agent.unique_id == 2:
             portrayal["Color"] = "green"
-            # portrayal["text"] = "이윤승"
-            # portrayal["text_color"] = "white"
+            portrayal["text"] = "이윤승"
+            portrayal["text_color"] = "white"
             portrayal["Layer"] = 1
         if agent.unique_id == 3:
             portrayal["Color"] = "royalblue"
-            # portrayal["text"] = "박상준"
-            # portrayal["text_color"] = "white"
+            portrayal["text"] = "박상준"
+            portrayal["text_color"] = "white"
             portrayal["Layer"] = 1
         if agent.unique_id == 4:
             portrayal["Color"] = "purple"
-            # portrayal["text"] = "최예찬"
-            # portrayal["text_color"] = "white"
+            portrayal["text"] = "최예찬"
+            portrayal["text_color"] = "white"
             portrayal["Layer"] = 1
         if agent.unique_id == 5:
             portrayal["Color"] = "black"
-            # portrayal["text"] = "이지승"
-            # portrayal["text_color"] = "white"
+            portrayal["text"] = "이지승"
+            portrayal["text_color"] = "white"
             portrayal["Layer"] = 1
     elif agent.name == "Cart":
+        portrayal["text"] = ""
         if (agent.unique_id == 1000) or (agent.unique_id == 2000):
             portrayal["Color"] = "rgba(255, 0, 0, 0.6)"
             portrayal["Layer"] = 1
@@ -71,6 +72,15 @@ def agent_portrayal(agent):
     elif agent.name == "Conveyor":
         portrayal["Color"] = "lightgrey"
         portrayal["Layer"] = 0
+    elif agent.name == "WorkplaceBlocked":
+        portrayal["Color"] = "rgba(255, 0, 0, 0.1)"
+        portrayal["text"] = "X"
+        portrayal["text_color"] = "red"
+        portrayal["Layer"] = 0
+    elif agent.name == "Workplace":
+        portrayal["Color"] = "transparent"
+        portrayal["text"] = ""
+        portrayal["Layer"] = 0
     return portrayal
 
 
@@ -95,5 +105,5 @@ server = ModularServer(
 
 server.description = '''쿠팡 물류센터 픽킹 작업 시뮬레이션 - Github@서용득 : https://github.com/yongchoooon/Simulation'''
 
-server.port = 8525  # Any non-80 port to appease replit
+server.port = 8540  # Any non-80 port to appease replit
 server.launch()

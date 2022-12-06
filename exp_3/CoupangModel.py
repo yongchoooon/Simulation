@@ -344,14 +344,10 @@ class Worker(Agent):
         self.move()
         agent_pos_nows[self.unique_id] = self.pos
 
-        # print(len(obstacles))
-        if self.unique_id == 1:
-            print("remaining works : ", self.num_remaining_work)
-            print("target : ", self.target_place)
-            print("now : ", self.pos)
-            print("obstacles : ", list(
-                set(obstacles) - set(inven_coords + conveyors)))
-            print("-------------------------------------------------------")
+        # print("remaining works : ", self.num_remaining_work)
+        # print("target : ", self.target_place)
+        # print("now : ", self.pos)
+        # print("-------------------------------------------------------")
 
     def allocate_work(self):
         self.num_remaining_work = 5
