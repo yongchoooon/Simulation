@@ -4,12 +4,10 @@
     - Wiki : [link](https://www.notion.so/05cd364718204bb4ae5877014f214298)
 <br>
 
-<img src="./CoupangSimulation.png" height="600" width="600">
+<img src="./video.gif" height="600" width="600">
 
 
-<video width="320" height="240" controls>
-  <source src="./video.mov" type="video/mov">
-</video>
+
 
 ### RUN
 ```python
