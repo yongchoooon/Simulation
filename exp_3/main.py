@@ -100,7 +100,7 @@ server = ModularServer(
     CoupangModel,
     [grid, chart],
     "Coupang Warehouse Simulation",
-    {"N": 2, "width": 17, "height": 16}
+    {"N": 6, "width": 17, "height": 16}
 )
 
 server.description = '''쿠팡 물류센터 픽킹 작업 시뮬레이션 - Github@서용득 : https://github.com/yongchoooon/Simulation'''
