@@ -6,6 +6,11 @@
 
 <img src="./CoupangSimulation.png" height="600" width="600">
 
+
+<video width="320" height="240" controls>
+  <source src="./video.mov" type="video/mov">
+</video>
+
 ### RUN
 ```python
 pip install mesa
